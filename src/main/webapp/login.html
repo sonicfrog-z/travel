@@ -24,7 +24,7 @@
 		$(function () {
 			$("#byn_sub").click(function () {
 				//send ajax request, submit form
-				$.post("loginServlet",$("#loginForm").serialize(), function (data) {
+				$.post("user/login",$("#loginForm").serialize(), function (data) {
 					//data:{flag:false, errorMsg:''}
 					if (data.flag){
 						//login successfully

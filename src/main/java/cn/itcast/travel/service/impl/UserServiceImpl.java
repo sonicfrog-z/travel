@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
         userDao.save(user);
 
         //send activation email
-        String content = "<a href='http://localhost/travel/activeUserServlet?code=" + user.getCode() + "'>Click to activate your account</a>";
+        String content = "<a href='http://localhost/travel/user/active?code=" + user.getCode() + "'>Click to activate your account</a>";
         MailUtils.sendMail(user.getEmail(), content, "Active your account");
         return true;
     }

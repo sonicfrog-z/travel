@@ -70,7 +70,7 @@
 				$("#registerForm").submit(function () {
 					//send data to server
 					if(checkUsername() && checkPassword() && checkEmail()){
-						$.post("registUserServlet", $(this).serialize(), function (data) {
+						$.post("user/regist", $(this).serialize(), function (data) {
 							//handel server's response data {flag:false,errorMsg:"Incorrect verification code"}
 							if(data.flag){
 								//register successfully, jump to new page

@@ -2,7 +2,7 @@
 
 <script>
     $(function () {
-        $.get("findUserServlet",{},function (data) {
+        $.get("user/findOne",{},function (data) {
             //{uid:1, name:'Tom'}
             $("#span_username").html("Hi "+data.name);
         })
@@ -25,7 +25,7 @@
             	
                 <span id="span_username"></span>
                 <a href="myfavorite.html" class="collection">Favorites</a>
-                <a href="javascript:location.href='exitServlet';">Log out</a>
+                <a href="javascript:location.href='user/exit';">Log out</a>
             </div>
         </div>
         <div class="header_wrap">
