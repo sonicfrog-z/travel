@@ -1,0 +1,68 @@
+<!-- 头部 start -->
+
+<script>
+    $(function () {
+        $.get("findUserServlet",{},function (data) {
+            //{uid:1, name:'Tom'}
+            $("#span_username").html("Hi "+data.name);
+        })
+    })
+
+
+</script>
+    <header id="header">
+        <div class="top_banner">
+            <img src="images/top_banner.jpg" alt="">
+        </div>
+        <div class="shortcut">
+            <!-- 未登录状态  -->
+            <div class="login_out">
+                <a href="login.html">Login</a>
+                <a href="register.html">Sign up</a>
+            </div>
+            <!-- 登录状态  -->
+            <div class="login">
+            	
+                <span id="span_username"></span>
+                <a href="myfavorite.html" class="collection">Favorites</a>
+                <a href="javascript:location.href='exitServlet';">Log out</a>
+            </div>
+        </div>
+        <div class="header_wrap">
+            <div class="topbar">
+                <div class="logo">
+                    <a href="/"><img src="images/logo.jpg" alt=""></a>
+                </div>
+                <div class="search">
+                    <input name="" type="text" placeholder="input name of a travel route" class="search_input" autocomplete="off">
+                    <a href="javascript:;" class="search-button">Search</a>
+                </div>
+                <div class="hottel">
+                    <div class="hot_pic">
+                        <img src="images/hot_tel.jpg" alt="">
+                    </div>
+                    <div class="hot_tel">
+                        <p class="hot_time">Support(9:00-18:00)</p>
+                        <p class="hot_num">400-618-9090</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- 头部 end -->
+     <!-- 首页导航 -->
+    <div class="navitem">
+        <ul class="nav">
+            <li class="nav-active"><a href="index.html">Home</a></li>
+            <li><a href="route_list.html">Tickets</a></li>
+            <li><a href="route_list.html">Hotel</a></li>
+            <li><a href="route_list.html">HK bus</a></li>
+            <li><a href="route_list.html">Outbound</a></li>
+            <li><a href="route_list.html">Domestic</a></li>
+            <li><a href="route_list.html">HK and Macao</a></li>
+            <li><a href="route_list.html">Group</a></li>
+            <li><a href="route_list.html">Global plan</a></li>
+            <li><a href="favoriterank.html">Ranking list</a></li>
+        </ul>
+    </div>
+    
