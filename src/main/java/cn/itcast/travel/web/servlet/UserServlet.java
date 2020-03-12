@@ -9,7 +9,6 @@ import org.apache.commons.beanutils.BeanUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -42,10 +41,11 @@ public class UserServlet extends BaseServlet {
             ResultInfo info = new ResultInfo();
             info.setFlag(false);
             info.setErrorMsg("Incorrect verification code");
-            ObjectMapper mapper = new ObjectMapper();
+            /*ObjectMapper mapper = new ObjectMapper();
             String json = mapper.writeValueAsString(info);
             response.setContentType("application/json");
-            response.getWriter().write(json);
+            response.getWriter().write(json);*/
+            writeValue(info,response);
             return;
         }
 
@@ -72,13 +72,14 @@ public class UserServlet extends BaseServlet {
         }
 
         //serialize info into json
-        ObjectMapper mapper = new ObjectMapper();
-        String json = mapper.writeValueAsString(info);
+        /*ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(info);*/
 
         //return json data to web client
+        /*response.setContentType("application/json");
+        response.getWriter().write(json);*/
 
-        response.setContentType("application/json");
-        response.getWriter().write(json);
+        writeValue(info,response);
     }
 
     /**
@@ -125,9 +126,10 @@ public class UserServlet extends BaseServlet {
         }
 
         //return to client
-        ObjectMapper mapper = new ObjectMapper();
+        /*ObjectMapper mapper = new ObjectMapper();
         response.setContentType("application/json");
-        mapper.writeValue(response.getOutputStream(), info);
+        mapper.writeValue(response.getOutputStream(), info);*/
+        writeValue(info,response);
     }
 
     /**
@@ -141,9 +143,10 @@ public class UserServlet extends BaseServlet {
         //get user info from session
         Object user = request.getSession().getAttribute("user");
         //return user info to client
-        ObjectMapper mapper = new ObjectMapper();
+        /*ObjectMapper mapper = new ObjectMapper();
         response.setContentType("application/json");
-        mapper.writeValue(response.getOutputStream(), user);
+        mapper.writeValue(response.getOutputStream(), user);*/
+        writeValue(user, response);
     }
 
     /**

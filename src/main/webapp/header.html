@@ -2,9 +2,25 @@
 
 <script>
     $(function () {
+        //query user info
         $.get("user/findOne",{},function (data) {
             //{uid:1, name:'Tom'}
             $("#span_username").html("Hi "+data.name);
+        })
+
+        //query category data
+        $.get("category/findAll",{},function (data) {
+            //[{cid:1,cname:aaaa},{},{}]
+            var lis = '<li class="nav-active"><a href="index.html">Home</a></li>';
+            //traverse data to concatenate (String)lis
+            for (var i = 0; i < data.length; i++) {
+                var li = '<li><a href="route_list.html?cid='+data[i].cid+'">'+data[i].cname+'</a></li>';
+                lis += li;
+            }
+            //concatenate rank to lis
+            lis += '<li><a href="favoriterank.html">Ranking list</a></li>';
+            //insert lis into ul
+            $("#category").html(lis);
         })
     })
 
@@ -52,17 +68,17 @@
     <!-- 头部 end -->
      <!-- 首页导航 -->
     <div class="navitem">
-        <ul class="nav">
-            <li class="nav-active"><a href="index.html">Home</a></li>
+        <ul id="category" class="nav">
+            <!--<li class="nav-active"><a href="index.html">Home</a></li>
             <li><a href="route_list.html">Tickets</a></li>
             <li><a href="route_list.html">Hotel</a></li>
-            <li><a href="route_list.html">HK bus</a></li>
+            <li><a href="route_list.html">HK Bus</a></li>
             <li><a href="route_list.html">Outbound</a></li>
             <li><a href="route_list.html">Domestic</a></li>
             <li><a href="route_list.html">HK and Macao</a></li>
             <li><a href="route_list.html">Group</a></li>
-            <li><a href="route_list.html">Global plan</a></li>
-            <li><a href="favoriterank.html">Ranking list</a></li>
+            <li><a href="route_list.html">Global Plan</a></li>
+            <li><a href="favoriterank.html">Ranking List</a></li>-->
         </ul>
     </div>
     
