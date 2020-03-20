@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/rout/*")
+@WebServlet("/route/*")
 public class RoutServlet extends BaseServlet {
     private RouteService routService = new RouteServiceImpl();
 
