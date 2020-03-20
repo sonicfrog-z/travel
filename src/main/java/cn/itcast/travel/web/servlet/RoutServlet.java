@@ -27,6 +27,8 @@ public class RoutServlet extends BaseServlet {
         String currentPageStr = request.getParameter("currentPage");
         String pageSizeStr = request.getParameter("pageSize");
         String cidStr = request.getParameter("cid");
+        String rname = request.getParameter("rname");
+        rname = new String(rname.getBytes("iso-8859-1"),"utf-8");
 
         //cast param
         //default cid is 0
@@ -48,7 +50,7 @@ public class RoutServlet extends BaseServlet {
         }
 
         //call service to get pageBean object
-        PageBean<Route> pb = routService.pageQuery(cid, currentPage, pageSize);
+        PageBean<Route> pb = routService.pageQuery(cid, currentPage, pageSize, rname);
         //serialize pageBean to json and return to client
         writeValue(pb,response);
     }
