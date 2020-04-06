@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/route/*")
-public class RoutServlet extends BaseServlet {
+public class RouteServlet extends BaseServlet {
     private RouteService routService = new RouteServiceImpl();
 
     /**
@@ -33,7 +33,7 @@ public class RoutServlet extends BaseServlet {
         //cast param
         //default cid is 0
         int cid=0;
-        if (cidStr !=null && cidStr.length()>0){
+        if (cidStr !=null && cidStr.length()>0 && !"null".equals(cidStr)){
             cid = Integer.parseInt(cidStr);
         }
 
@@ -54,6 +54,18 @@ public class RoutServlet extends BaseServlet {
         //serialize pageBean to json and return to client
         writeValue(pb,response);
     }
+
+    //fined one route detail by route id
+    public void findOne(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //1 get id
+        String rid = request.getParameter("rid");
+        //2 call servlet to get route obj
+        Route route = routService.findOne(rid);
+        //3 convert to json and return to client
+        writeValue(route, response);
+    }
+
+
 
 
 }

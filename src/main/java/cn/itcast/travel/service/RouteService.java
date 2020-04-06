@@ -12,4 +12,11 @@ public interface RouteService {
      * @return
      */
     public PageBean<Route> pageQuery (int cid, int currentPage, int pageSize, String rname);
+
+    /**
+     * query route info by id
+     * @param rid
+     * @return
+     */
+    public Route findOne(String rid);
 }

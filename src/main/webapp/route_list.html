@@ -21,38 +21,36 @@
             if (rname){
                 rname = window.decodeURIComponent(rname);
             }
-            alert(cid);
-            alert(rname);
 
             //after page loaded, send ajax request to load route data
-            load(cid,1);
+            load(cid,null,rname);
 
         })
 
         //send request with cid to rout/pageQuery
-        function load(cid, currentPage) {
-            $.get("route/pageQuery", {cid:cid, currentPage:currentPage},function (pb) {
+        function load(cid, currentPage, rname) {
+            $.get("route/pageQuery", {cid:cid, currentPage:currentPage, rname: rname},function (pb) {
                 //1. parse pageBean and display
                 //1.1 display total page and total count
                 $("#totalPage").html(pb.totalPage);
                 $("#totalCount").html(pb.totalCount);
 
                 //1.2 display page number
-                var firstPage = '<li onclick="load('+cid+','+1+')"><a href="javascript:void(0)">First</a></li>';
+                var firstPage = '<li onclick="load('+cid+',1,\''+rname+'\')"><a href="javascript:void(0)">First</a></li>';
 
                 var prePageNum = pb.currentPage-1;
                 if(prePageNum<=0){
                     prePageNum = 1;
                 }
-                var prePage = '<li onclick="load('+cid+','+prePageNum+')" class="threeword"><a href="javascript:void(0)">Previous</a></li>';
+                var prePage = '<li onclick="load('+cid+','+prePageNum+',\''+rname+'\')" class="threeword"><a href="javascript:void(0)">Previous</a></li>';
 
-                var lastPage = '<li onclick="load('+cid+','+pb.totalPage+')" class="threeword"><a href="javascript:void(0)">Last</a></li>';
+                var lastPage = '<li onclick="load('+cid+','+pb.totalPage+',\''+rname+'\')" class="threeword"><a href="javascript:void(0)">Last</a></li>';
 
                 var nextPageNum = pb.currentPage+1;
                 if(nextPageNum>pb.totalPage){
                     nextPageNum = pb.totalPage;
                 }
-                var nextPage = '<li onclick="load('+cid+','+nextPageNum+')" class="threeword"><a href="javascript:void(0)">Next</a></li>';
+                var nextPage = '<li onclick="load('+cid+','+nextPageNum+',\''+rname+'\')" class="threeword"><a href="javascript:void(0)">Next</a></li>';
 
                 /*
                     1. display 10 page number, 5 before current, 4 behind current
@@ -100,9 +98,9 @@
                     var li;
                     //if i is current page
                     if(pb.currentPage == i){
-                        li = '<li class="curPage" onclick="javascript:load('+cid+','+i+')"><a href="javascript:void(0)">'+i+'</a></li>';
+                        li = '<li class="curPage" onclick="javascript:load('+cid+','+i+',\''+rname+'\')"><a href="javascript:void(0)">'+i+'</a></li>';
                     } else {
-                        li = '<li onclick="load('+cid+','+i+')"><a href="javascript:void(0)">'+i+'</a></li>';
+                        li = '<li onclick="load('+cid+','+i+',\''+rname+'\')"><a href="javascript:void(0)">'+i+'</a></li>';
                     }
                     lis += li;
                 }
@@ -148,7 +146,7 @@
                             '            <span>'+route.price+'</span>\n' +
                             '            <span>起</span>\n' +
                             '        </p>\n' +
-                            '        <p><a href="route_detail.html">Detail</a></p>\n' +
+                            '        <p><a href="route_detail.html?rid='+route.rid+'">Detail</a></p>\n' +
                             '    </div>\n' +
                             '</li>';
                     route_lis += li;

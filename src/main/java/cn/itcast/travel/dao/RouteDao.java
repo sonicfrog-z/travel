@@ -10,4 +10,7 @@ public interface RouteDao {
 
     //query current page result set by cid, start, page size
     public List<Route> findByPage(int cid, int stat, int pageSize, String rname);
+
+    //query route info by rid
+    public Route findOne(int rid);
 }
