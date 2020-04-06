@@ -2,7 +2,10 @@ package cn.itcast.travel.web.servlet;
 
 import cn.itcast.travel.domain.PageBean;
 import cn.itcast.travel.domain.Route;
+import cn.itcast.travel.domain.User;
+import cn.itcast.travel.service.FavoriteService;
 import cn.itcast.travel.service.RouteService;
+import cn.itcast.travel.service.impl.FavoriteServiceImpl;
 import cn.itcast.travel.service.impl.RouteServiceImpl;
 
 import javax.servlet.ServletException;
@@ -14,6 +17,7 @@ import java.io.IOException;
 @WebServlet("/route/*")
 public class RouteServlet extends BaseServlet {
     private RouteService routService = new RouteServiceImpl();
+    private FavoriteService favoriteService = new FavoriteServiceImpl();
 
     /**
      * pages partition query
@@ -65,7 +69,45 @@ public class RouteServlet extends BaseServlet {
         writeValue(route, response);
     }
 
+    //determine if the route is favorited by current user
+    public void isFavorite (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //1 get route id
+        String rid = request.getParameter("rid");
+        //2 get current user
+        User user = (User) request.getSession().getAttribute("user");
+        int uid;
+        if (user == null){
+            uid = 0;
+        } else {
+            uid = user.getUid();
+        }
+
+        //3 call FavoriteService to check if is favorite
+        boolean flag = favoriteService.isFavorite(rid, uid);
+
+        //return flag to client
+        writeValue(flag, response);
+    }
+
+    public void addFavorite (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //1 get rid
+        String rid = request.getParameter("rid");
+        //2 get user
+        User user = (User) request.getSession().getAttribute("user");
+        int uid;
+        if (user == null){
+            //not login
+            return;
+        } else {
+            //is login
+            uid = user.getUid();
+        }
+
+        //3 call service to add favorite
+        favoriteService.add(rid, uid);
+    }
 
 
 
-}
+
+    }

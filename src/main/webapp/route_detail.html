@@ -83,10 +83,10 @@
             <div class="pros_price">
                 <p class="price"><strong id="price">¥2699.00</strong><span>起</span></p>
                 <p class="collect">
-                    <a class="btn"><i class="glyphicon glyphicon-heart-empty"></i>点击收藏</a>
+                    <a class="btn" id="favorite" onclick="addFavorite();"><i class="glyphicon glyphicon-heart-empty"></i>Favorite</a>
 
-                    <a class="btn already" disabled="disabled"><i class="glyphicon glyphicon-heart-empty"></i>点击收藏</a>
-                    <span>已收藏100次</span>
+<!--                    <a class="btn already" disabled="disabled"><i class="glyphicon glyphicon-heart-empty"></i>Favorite</a>-->
+                    <span id="favoriteCount">Liked by 100 people</span>
                 </p>
             </div>
         </div>
@@ -207,6 +207,7 @@
             $("#sname").html(route.seller.sname);
             $("#consphone").html(route.seller.consphone);
             $("#address").html(route.seller.address);
+            $("#favoriteCount").html("Liked by "+route.count+" people");
 
             //show pictures
             var ddstr = '<a class="up_img up_img_disable"></a>';
@@ -229,8 +230,46 @@
             //show pic and switch
             goImg();
         });
-
     });
+
+    $(function () {
+        //send request to query if current user favorite this route
+        var rid = getParameter("rid");
+        $.get("route/isFavorite", {rid:rid}, function (flag) {
+            if (flag){
+                //is favorite, set favorite button style
+                $("#favorite").addClass("already");
+                $("#favorite").attr("disabled", "disabled");
+                //delete the onclick event on the Favorite button
+                $("#favorite").removeAttr("onclick");
+
+            } else {
+                //not favorite
+            }
+        });
+    });
+
+    //click Favorite button to run this function
+    function addFavorite() {
+        var rid = getParameter("rid");
+
+        //1 determine if user is login
+        $.get("user/findOne", {}, function (user) {
+            if(user){
+                //user is login, add favorite
+                $.get("route/addFavorite", {rid: rid}, function () {
+                    //refresh page
+                    location.reload();
+
+                });
+
+            } else {
+                //user not login
+                alert("You are not logged in, please log in");
+                location.href = "http://localhost/travel/login.html";
+            }
+        })
+    }
 </script>
 </body>
 
